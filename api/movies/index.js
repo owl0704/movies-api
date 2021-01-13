@@ -1,6 +1,6 @@
 import express from 'express';
 import { getMovieReviews } from '../tmdb-api';
-import movieModel from './movieModel'
+import movieModel from './movieModel';
 
 const router = express.Router();
 
