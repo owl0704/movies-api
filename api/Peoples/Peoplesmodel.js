@@ -19,6 +19,7 @@ const PeoplesSchema = new Schema({
     profile_path: {type: String}
 });
 
+
 PeoplesSchema.statics.findByPeoplesDBId = function (id) {
     return this.findOne({ id: id });
   };
