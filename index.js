@@ -12,6 +12,7 @@ import session from 'express-session';
 import passport from './authenticate';
 import PeoplesRouter from './api/Peoples';
 
+
 dotenv.config();
 if (process.env.SEED_DB) {
     loadUsers();
@@ -32,18 +33,18 @@ const errHandler = (err, req, res,) => {
 const app = express();
 
 const port = process.env.PORT;
+app.use(passport.initialize());
+app.use(session({
+  secret: 'ilikecake',
+  resave: true,
+  saveUninitialized: true
+}));
+
 //configure body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(session({
-    secret: 'ilikecake',
-    resave: true,
-    saveUninitialized: true
-  }));
 
 app.use(express.static('public'));
-
-app.use(passport.initialize());
 
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/upcoming', upcomingRouter);
@@ -53,6 +54,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/genres', genresRouter);
 app.use(errHandler);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
+
+module.exports = server;
