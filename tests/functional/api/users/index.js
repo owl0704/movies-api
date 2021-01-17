@@ -7,8 +7,9 @@ import api from "../../../../index";
 const expect = chai.expect;
 
 let db;
-//let api;
 let token;
+
+
 
 const users = [
   {
@@ -36,7 +37,7 @@ describe("Users endpoint", () => {
       })
       .end((err, res) => {
         token = res.body.token;
-        console.log(token)
+        console.log(token);
         done();
       });
   });
@@ -50,7 +51,6 @@ describe("Users endpoint", () => {
   });
   beforeEach(async () => {
     try {
-      //api = require("../../../../index");
       await User.deleteMany({});
       await User.collection.insertMany(users);
     } catch (err) {
@@ -62,7 +62,7 @@ describe("Users endpoint", () => {
     delete require.cache[require.resolve("../../../../index")];
   });
   describe("GET /users ", () => {
-    it("should return the 2 users and a status 200", (done) => {
+    it("should return  a status ", (done) => {
       request(api)
         .get("/api/users")
         .set("Accept", "application/json")
@@ -77,9 +77,8 @@ describe("Users endpoint", () => {
         });
     });
   });
-
   describe("POST / ", () => {
-    it("should return a 200 status and the confirmation message", () => {
+    it("should return confirmation message", () => {
       return request(api)
         .post("/api/users?action=register")
         .send({
@@ -103,4 +102,65 @@ describe("Users endpoint", () => {
         });
     });
   });
-});
+  describe("POST /users /username /favourites ", () => {
+    it("should return  a invaild movie id", () => {
+      request(api)
+        .post(`/api/users/user1/favourites`)
+        .send({
+          id: "602211",
+        });
+        request(api)
+        .post(`/api/users/user1/favourites`)
+        .send({
+          id: "602211",
+        })
+        .expect(401);
+    });
+    it("should return  a vaild movie id", () => {
+      request(api)
+        .post(`/api/users/user1/favourites`)
+        .send({
+          id: "729648",
+        })
+        .expect(201);
+        });
+    });
+    
+    describe("GET /users/ username/favourites ", () => {
+      it("should return the users favourites movies", () => {
+        request(api)
+          .get(`/api/users/user1/favourites`)
+          .set("Accept", "application/json")
+          .expect("Content-Type", /json/)
+          .expect(201)
+          .end((err, res) => {
+            expect(res.body).to.be.a("array");
+            expect(res.body.length).to.equal(0); 
+          });
+      });
+    });
+    describe("POST /users /username /watchlist ", () => {
+      it("should return a invaild movie id", () => {
+        request(api)
+          .post(`/api/users/user2/watchlist?action=register`)
+          .send({
+            id: "729648",
+          });
+          request(api)
+          .post(`/api/users/user2/watchlist?action=register`)
+          .send({
+            id: "729648",
+          })
+          .expect(401);
+          });
+    
+      it("should return  watchlist ", () => {
+        request(api)
+          .post(`/api/users/user2/watchlist?action=register`)
+          .send({
+            id: "602211",
+          })
+          .expect(201);
+          });
+      });
+    });

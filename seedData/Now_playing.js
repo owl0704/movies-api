@@ -1,4 +1,4 @@
-export const upcoming = [
+export const Now_playing = [
 {
     "page": 1,
     "results": [
