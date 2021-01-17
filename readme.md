@@ -68,7 +68,7 @@ Give an overview of your web API design, perhaps similar to the following:
 | /api/users/username/favourite | get the favourite movies | add favourite movies |  N/A  | N/A
 
 ![][swagger1]
-![][swaggwr2]
+![][swagger2]
 If you have your API design on an online platform or graphic, please link to it ( [Swaggerhub](http://localhost:18512/-1608269672#/)(swagger ui page).
 
 
