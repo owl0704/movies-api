@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-
 const UpcomingSchema = new Schema({
   adult: { type: Boolean },
   id: { type: Number, required: true, unique: true },
