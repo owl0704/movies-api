@@ -1,4 +1,3 @@
-# Node docker image on which this would be run
 image: node:latest
 
 variables:
@@ -16,7 +15,7 @@ cache:
 services:
    - mongo
 
-stages: 
+stages:
   - install
   - build
   - test
@@ -41,12 +40,9 @@ test_api:
   stage: test
   script:
     - npm test
-    
 
 deploy_staging:
   image: ruby:latest
-  only:
-    - develop
   stage: staging
   before_script:
     - apt-get update -qy
@@ -54,9 +50,9 @@ deploy_staging:
     - gem install dpl
   script:  
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_STAGING --api-key=$HEROKU_API_KEY
-    - echo "Deployed to staging server" 
+    - echo "Deployed to staging server"
 
-    continuous_delivery:
+continuous_delivery:
   image: ruby:latest
   stage: deploy
   dependencies:
@@ -86,4 +82,3 @@ continuous_deployment:
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_MASTER --api-key=$HEROKU_API_KEY
     - echo "Deployed to master server"
-  
