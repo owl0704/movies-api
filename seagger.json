@@ -223,6 +223,32 @@
                 }
             }
         },
+        "/api/movie/delete": {
+            "delete": {
+                "tags": [
+                    "Movie"
+                ],
+                "summary": "delete the movie",
+                "description": "Auth",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "id",
+                        "name": "movie id",
+                        "description": "delete movie",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "sucess": true,
+                        "token": "value"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -273,6 +299,32 @@
                         "in": "body",
                         "name": "body",
                         "description": "User data",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "sucess": true,
+                        "token": "value"
+                    }
+                }
+            }
+        },
+        "/api/users/watchlist=auth": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Post user watchlist",
+                "description": "Auth",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User watchlist",
                         "required": true
                     }
                 ],
