@@ -16,7 +16,7 @@ cache:
 services:
    - mongo
 
-stages:
+stages: 
   - install
   - build
   - test
